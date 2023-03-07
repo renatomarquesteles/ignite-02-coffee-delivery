@@ -1,7 +1,12 @@
+import { ThemeProvider } from "styled-components";
+
+import { Home } from "./pages/Home";
+import { defaultTheme } from "./styles/themes/default";
+
 export const App = () => {
   return (
-    <div>
-      <h1>Coffee Delivery</h1>
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <Home />
+    </ThemeProvider>
   );
 };
