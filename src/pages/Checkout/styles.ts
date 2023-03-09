@@ -71,6 +71,7 @@ export const AddressInputsWrapper = styled.div`
     color: ${(props) => props.theme["base-text"]};
     font-size: 0.875rem;
     line-height: 130%;
+    position: relative;
 
     &.mid {
       max-width: 12.5rem;
@@ -79,6 +80,26 @@ export const AddressInputsWrapper = styled.div`
     &.short {
       max-width: 3.75rem;
     }
+  }
+`;
+
+export const OptionalInputContainer = styled.div`
+  flex: 1;
+  position: relative;
+
+  input {
+    padding-right: 4.25rem;
+  }
+
+  &::after {
+    content: "Optional";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.875rem 0.75rem;
+    color: ${(props) => props.theme["base-label"]};
+    font-size: 0.75rem;
+    line-height: 130%;
   }
 `;
 

@@ -20,6 +20,7 @@ import {
   Subtitle,
   PaymentMethods,
   PaymentMethodLabel,
+  OptionalInputContainer,
 } from "./styles";
 
 type PaymentMethod = "credit" | "debit" | "money";
@@ -58,7 +59,9 @@ export const Checkout = () => {
             </AddressInputsWrapper>
             <AddressInputsWrapper>
               <input type="text" className="mid" placeholder="Number" />
-              <input type="text" placeholder="Complement" />
+              <OptionalInputContainer>
+                <input type="text" placeholder="Complement" />
+              </OptionalInputContainer>
             </AddressInputsWrapper>
             <AddressInputsWrapper>
               <input type="text" className="mid" placeholder="Neighborhood" />
