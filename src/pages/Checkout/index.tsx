@@ -1,34 +1,53 @@
-import { MapPinLine } from "phosphor-react";
+import {
+  Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
+  Money,
+} from "phosphor-react";
+import { useState } from "react";
+import { useTheme } from "styled-components";
 
 import {
-  AddressCard,
-  AddressCardDescription,
+  Card,
+  Description,
   AddressInputs,
   AddressInputsWrapper,
   CartCard,
   CartInfo,
   Container,
   CustomerInfo,
-  PaymentCard,
   Subtitle,
+  PaymentMethods,
+  PaymentMethodLabel,
 } from "./styles";
 
+type PaymentMethod = "credit" | "debit" | "money";
+
 export const Checkout = () => {
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState<PaymentMethod | null>(null);
+  const theme = useTheme();
+
+  const handlePaymentChange = (method: PaymentMethod) => {
+    setSelectedPaymentMethod(method);
+  };
+
   return (
     <Container>
       <CustomerInfo>
         <Subtitle>Complete your order</Subtitle>
 
-        <AddressCard>
-          <AddressCardDescription>
-            <MapPinLine size={22} />
+        <Card>
+          <Description>
+            <MapPinLine size={22} color={theme["yellow-dark"]} />
             <div>
               <h2>Shipping Address</h2>
               <p>
                 Enter the address where you would like to receive your order
               </p>
             </div>
-          </AddressCardDescription>
+          </Description>
 
           <AddressInputs>
             <AddressInputsWrapper>
@@ -47,9 +66,67 @@ export const Checkout = () => {
               <input type="text" className="short" placeholder="State" />
             </AddressInputsWrapper>
           </AddressInputs>
-        </AddressCard>
+        </Card>
 
-        <PaymentCard>PaymentMethod</PaymentCard>
+        <Card>
+          <Description>
+            <CurrencyDollar size={22} color={theme.purple} />
+            <div>
+              <h2>Payment Method</h2>
+              <p>Payment is made upon delivery. Choose how you want to pay</p>
+            </div>
+          </Description>
+
+          <PaymentMethods>
+            <input
+              type="radio"
+              id="credit"
+              name="credit"
+              value="credit"
+              checked={selectedPaymentMethod === "credit"}
+              onChange={() => handlePaymentChange("credit")}
+            />
+            <PaymentMethodLabel
+              htmlFor="credit"
+              selected={selectedPaymentMethod === "credit"}
+            >
+              <CreditCard size={16} />
+              Credit Card
+            </PaymentMethodLabel>
+
+            <input
+              type="radio"
+              id="debit"
+              name="debit"
+              value="debit"
+              checked={selectedPaymentMethod === "debit"}
+              onChange={() => handlePaymentChange("debit")}
+            />
+            <PaymentMethodLabel
+              htmlFor="debit"
+              selected={selectedPaymentMethod === "debit"}
+            >
+              <Bank size={16} />
+              Debit Card
+            </PaymentMethodLabel>
+
+            <input
+              type="radio"
+              id="money"
+              name="money"
+              value="money"
+              checked={selectedPaymentMethod === "money"}
+              onChange={() => handlePaymentChange("money")}
+            />
+            <PaymentMethodLabel
+              htmlFor="money"
+              selected={selectedPaymentMethod === "money"}
+            >
+              <Money size={16} />
+              Money
+            </PaymentMethodLabel>
+          </PaymentMethods>
+        </Card>
       </CustomerInfo>
 
       <CartInfo>
