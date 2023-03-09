@@ -8,7 +8,7 @@ interface BaseContainerProps {
 
 const BaseContainer = styled.div<BaseContainerProps>`
   display: flex;
-  flex-direction: center;
+  justify-content: center;
   align-items: center;
   background: ${(props) => props.theme[props.color]};
 `;

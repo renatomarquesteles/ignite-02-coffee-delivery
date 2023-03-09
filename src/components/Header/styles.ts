@@ -25,7 +25,7 @@ export const Location = styled.div`
   font-size: 0.875rem;
   padding: 0.5rem;
   display: flex;
-  flex-direction: center;
+  justify-content: center;
   align-items: center;
   gap: 0.25rem;
 

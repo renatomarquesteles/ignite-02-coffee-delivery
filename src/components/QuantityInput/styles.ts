@@ -7,7 +7,7 @@ export const Container = styled.div`
   border-radius: 6px;
   background: ${(props) => props.theme["base-button"]};
   display: flex;
-  flex-direction: center;
+  justify-content: center;
   align-items: center;
   gap: 0.25rem;
 
