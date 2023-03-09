@@ -4,9 +4,13 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
+  Trash,
 } from "phosphor-react";
 import { useState } from "react";
 import { useTheme } from "styled-components";
+
+import coffeeImage from "../../assets/coffees/1.png";
+import { QuantityInput } from "../../components/QuantityInput";
 
 import {
   Card,
@@ -21,6 +25,12 @@ import {
   PaymentMethods,
   PaymentMethodLabel,
   OptionalInputContainer,
+  CoffeeItem,
+  RemoveButton,
+  OptionsContainer,
+  CoffeeItemWrapper,
+  TotalPriceContainer,
+  ConfirmButton,
 } from "./styles";
 
 type PaymentMethod = "credit" | "debit" | "money";
@@ -135,7 +145,45 @@ export const Checkout = () => {
       <CartInfo>
         <Subtitle>Selected coffees</Subtitle>
 
-        <CartCard>Cart</CartCard>
+        <CartCard>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <CoffeeItem key={index}>
+              <img src={coffeeImage} alt="" />
+
+              <CoffeeItemWrapper>
+                <span>Traditional Espresso</span>
+
+                <OptionsContainer>
+                  <QuantityInput quantity={1} />
+
+                  <RemoveButton>
+                    <Trash size={16} />
+                    REMOVE
+                  </RemoveButton>
+                </OptionsContainer>
+              </CoffeeItemWrapper>
+
+              <span>$ 9.90</span>
+            </CoffeeItem>
+          ))}
+
+          <TotalPriceContainer>
+            <div>
+              <span>Subtotal</span>
+              <span>$ 29.70</span>
+            </div>
+            <div>
+              <span>Shipping</span>
+              <span>$3.50</span>
+            </div>
+            <div>
+              <span>Total</span>
+              <span>$ 33.20</span>
+            </div>
+          </TotalPriceContainer>
+
+          <ConfirmButton>PLACE ORDER</ConfirmButton>
+        </CartCard>
       </CartInfo>
     </Container>
   );
