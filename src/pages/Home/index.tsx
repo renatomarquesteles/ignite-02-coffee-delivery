@@ -1,26 +1,10 @@
-import {
-  Coffee,
-  Package,
-  ShoppingCart,
-  ShoppingCartSimple,
-  Timer,
-} from "phosphor-react";
+import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 
 import coffeeCupImg from "../../assets/coffee-cup.png";
 import { Tag } from "../../components/Tag";
-import { QuantityInput } from "../../components/QuantityInput";
-import { IconButton } from "../../components/IconButton";
+import { CoffeeCard } from "./components/CoffeeCard";
 
-import {
-  AddToCart,
-  AddToCartWrapper,
-  Benefits,
-  CoffeeCard,
-  CoffeeList,
-  Introduction,
-  Menu,
-  Tags,
-} from "./styles";
+import { Benefits, CoffeeList, Introduction, Menu } from "./styles";
 
 import database from "../../database/mock.json";
 
@@ -74,26 +58,7 @@ export const Home = () => {
         <h1>Menu</h1>
         <CoffeeList>
           {coffeeList.map((coffee) => (
-            <CoffeeCard key={coffee.id}>
-              <img src={coffee.image} alt="" />
-              <Tags>
-                {coffee.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </Tags>
-              <h1>{coffee.name}</h1>
-              <p>{coffee.description}</p>
-              <AddToCart>
-                <span>${coffee.price.toFixed(2)}</span>
-
-                <AddToCartWrapper>
-                  <QuantityInput quantity={1} />
-                  <IconButton type="button">
-                    <ShoppingCartSimple size={22} weight="fill" />
-                  </IconButton>
-                </AddToCartWrapper>
-              </AddToCart>
-            </CoffeeCard>
+            <CoffeeCard key={coffee.id} coffee={coffee} />
           ))}
         </CoffeeList>
       </Menu>
