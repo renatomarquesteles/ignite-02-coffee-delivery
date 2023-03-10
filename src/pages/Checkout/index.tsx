@@ -153,18 +153,20 @@ export const Checkout = () => {
         <Subtitle>Selected coffees</Subtitle>
 
         <CartCard>
-          {Array.from({ length: 3 }).map((_, index) => (
-            <CoffeeItem key={index}>
-              <img src="/assets/coffees/1.png" alt="" />
+          {orderItems.map((item, index) => (
+            <CoffeeItem key={item.name + index}>
+              <img src={item.image} alt="" />
 
               <CoffeeItemWrapper>
-                <span>Traditional Espresso</span>
+                <span>{item.name}</span>
 
                 <OptionsContainer>
                   <QuantityInput
-                    quantity={1}
+                    quantity={item.quantity}
                     onPlusClick={() => {}}
                     onMinusClick={() => {}}
+                    min={1}
+                    max={99}
                   />
 
                   <RemoveButton>
@@ -174,7 +176,7 @@ export const Checkout = () => {
                 </OptionsContainer>
               </CoffeeItemWrapper>
 
-              <span>$ 9.90</span>
+              <span>$ {item.price.toFixed(2)}</span>
             </CoffeeItem>
           ))}
 
