@@ -6,11 +6,12 @@ import {
   Money,
   Trash,
 } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
 import { QuantityInput } from "../../components/QuantityInput";
+import { CartContext } from "../../contexts/CartContext";
 
 import {
   Card,
@@ -38,8 +39,13 @@ type PaymentMethod = "credit" | "debit" | "money";
 export const Checkout = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethod | null>(null);
+  const { orderItems } = useContext(CartContext);
   const theme = useTheme();
   const navigate = useNavigate();
+
+  const subtotal = orderItems.reduce((sum, item) => sum + item.price, 0);
+  const shipping = 3.5;
+  const total = subtotal + shipping;
 
   const handlePaymentChange = (method: PaymentMethod) => {
     setSelectedPaymentMethod(method);
@@ -155,7 +161,11 @@ export const Checkout = () => {
                 <span>Traditional Espresso</span>
 
                 <OptionsContainer>
-                  <QuantityInput quantity={1} />
+                  <QuantityInput
+                    quantity={1}
+                    onPlusClick={() => {}}
+                    onMinusClick={() => {}}
+                  />
 
                   <RemoveButton>
                     <Trash size={16} />
@@ -171,15 +181,15 @@ export const Checkout = () => {
           <TotalPriceContainer>
             <div>
               <span>Subtotal</span>
-              <span>$ 29.70</span>
+              <span>$ {subtotal.toFixed(2)}</span>
             </div>
             <div>
               <span>Shipping</span>
-              <span>$3.50</span>
+              <span>$ {shipping.toFixed(2)}</span>
             </div>
             <div>
               <span>Total</span>
-              <span>$ 33.20</span>
+              <span>$ {total.toFixed(2)}</span>
             </div>
           </TotalPriceContainer>
 

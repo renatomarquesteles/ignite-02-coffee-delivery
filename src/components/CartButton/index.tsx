@@ -1,4 +1,6 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode, useContext } from "react";
+
+import { CartContext } from "../../contexts/CartContext";
 
 import { Container } from "./styles";
 
@@ -12,8 +14,10 @@ export const CartButton = ({
   children,
   ...props
 }: CartButtonProps) => {
+  const { orderItems } = useContext(CartContext);
+
   return (
-    <Container notifications={notifications} {...props}>
+    <Container notifications={orderItems.length} {...props}>
       {children}
     </Container>
   );

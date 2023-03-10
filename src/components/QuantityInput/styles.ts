@@ -22,6 +22,11 @@ export const Container = styled.div`
     &:hover {
       color: ${(props) => props.theme["purple-dark"]};
     }
+
+    &:disabled {
+      color: ${(props) => props.theme["base-label"]};
+      cursor: not-allowed;
+    }
   }
 
   span {

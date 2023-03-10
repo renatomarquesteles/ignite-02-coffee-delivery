@@ -1,8 +1,10 @@
+import { useContext, useState } from "react";
 import { ShoppingCartSimple } from "phosphor-react";
 
 import { IconButton } from "../../../../components/IconButton";
 import { QuantityInput } from "../../../../components/QuantityInput";
 import { Tag } from "../../../../components/Tag";
+import { CartContext } from "../../../../contexts/CartContext";
 
 import { AddToCart, AddToCartWrapper, Container, Tags } from "./styles";
 
@@ -18,6 +20,17 @@ interface CoffeeCardProps {
 }
 
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
+  const [quantity, setQuantity] = useState(1);
+  const { addCoffeeToCart } = useContext(CartContext);
+
+  const handleAddQuantity = () => {
+    setQuantity((state) => state + 1);
+  };
+
+  const handleRemoveQuantity = () => {
+    setQuantity((state) => state - 1);
+  };
+
   return (
     <Container>
       <img src={coffee.image} alt="" />
@@ -32,8 +45,17 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
         <span>${coffee.price.toFixed(2)}</span>
 
         <AddToCartWrapper>
-          <QuantityInput quantity={1} />
-          <IconButton type="button">
+          <QuantityInput
+            quantity={quantity}
+            onPlusClick={handleAddQuantity}
+            onMinusClick={handleRemoveQuantity}
+            min={1}
+            max={99}
+          />
+          <IconButton
+            type="button"
+            onClick={() => addCoffeeToCart(coffee, quantity)}
+          >
             <ShoppingCartSimple size={22} weight="fill" />
           </IconButton>
         </AddToCartWrapper>
