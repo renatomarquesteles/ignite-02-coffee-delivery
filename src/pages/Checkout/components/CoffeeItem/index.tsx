@@ -45,7 +45,7 @@ export const CoffeeItem = ({ item }: CoffeeItemProps) => {
         </OptionsContainer>
       </CoffeeItemWrapper>
 
-      <span>$ {item.price.toFixed(2)}</span>
+      <span>$ {(item.price * item.quantity).toFixed(2)}</span>
     </Container>
   );
 };

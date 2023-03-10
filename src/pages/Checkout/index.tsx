@@ -38,7 +38,10 @@ export const Checkout = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const subtotal = orderItems.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = orderItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const shipping = 3.5;
   const total = subtotal + shipping;
 
