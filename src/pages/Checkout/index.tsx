@@ -10,7 +10,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-import coffeeImage from "../../assets/coffees/1.png";
 import { QuantityInput } from "../../components/QuantityInput";
 
 import {
@@ -150,7 +149,7 @@ export const Checkout = () => {
         <CartCard>
           {Array.from({ length: 3 }).map((_, index) => (
             <CoffeeItem key={index}>
-              <img src={coffeeImage} alt="" />
+              <img src="/assets/coffees/1.png" alt="" />
 
               <CoffeeItemWrapper>
                 <span>Traditional Espresso</span>

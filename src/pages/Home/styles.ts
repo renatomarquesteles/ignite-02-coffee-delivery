@@ -126,6 +126,13 @@ export const CoffeeCard = styled.div`
   }
 `;
 
+export const Tags = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+`;
+
 export const AddToCart = styled.div`
   width: 100%;
   display: flex;

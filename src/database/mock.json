@@ -1,0 +1,116 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Traditional Espresso",
+      "description": "Traditional coffee made from hot water and ground beans",
+      "price": 9.90,
+      "image": "/assets/coffees/1.png",
+      "tags": ["traditional"]
+    },
+    {
+      "id": 2,
+      "name": "American Espresso",
+      "description": "Diluted espresso, less intense than traditional espresso",
+      "price": 9.90,
+      "image": "/assets/coffees/2.png",
+      "tags": ["traditional"]
+    },
+    {
+      "id": 3,
+      "name": "Creamy Espresso",
+      "description": "Traditional espresso with creamy froth",
+      "price": 9.90,
+      "image": "/assets/coffees/3.png",
+      "tags": ["traditional"]
+    },
+    {
+      "id": 4,
+      "name": "Iced Espresso",
+      "description": "Beverage made with espresso coffee and ice cubes",
+      "price": 9.90,
+      "image": "/assets/coffees/4.png",
+      "tags": ["traditional", "iced"]
+    },
+    {
+      "id": 5,
+      "name": "Coffee with milk",
+      "description": "Traditional espresso with steamed milk",
+      "price": 9.90,
+      "image": "/assets/coffees/5.png",
+      "tags": ["traditional", "with milk"]
+    },
+    {
+      "id": 6,
+      "name": "Latte",
+      "description": "A shot of espresso with double the milk and creamy froth",
+      "price": 9.90,
+      "image": "/assets/coffees/6.png",
+      "tags": ["traditional", "with milk"]
+    },
+    {
+      "id": 7,
+      "name": "Capuccino",
+      "description": "Cinnamon drink made from equal doses of coffee, milk and froth",
+      "price": 9.90,
+      "image": "/assets/coffees/7.png",
+      "tags": ["traditional", "with milk"]
+    },
+    {
+      "id": 8,
+      "name": "Macchiato",
+      "description": "Espresso coffee mixed with a little hot milk and froth",
+      "price": 9.90,
+      "image": "/assets/coffees/8.png",
+      "tags": ["traditional", "with milk"]
+    },
+    {
+      "id": 9,
+      "name": "Mocaccino",
+      "description": "Espresso coffee with chocolate sauce, a little milk and foam",
+      "price": 9.90,
+      "image": "/assets/coffees/9.png",
+      "tags": ["traditional", "with milk"]
+    },
+    {
+      "id": 10,
+      "name": "Hot Chocolate",
+      "description": "Drink made of chocolate dissolved in hot milk and coffee",
+      "price": 9.90,
+      "image": "/assets/coffees/10.png",
+      "tags": ["special", "with milk"]
+    },
+    {
+      "id": 11,
+      "name": "Cuban",
+      "description": "Iced espresso drink with rum, cream and mint",
+      "price": 9.90,
+      "image": "/assets/coffees/11.png",
+      "tags": ["special", "alcoholic", "iced"]
+    },
+    {
+      "id": 12,
+      "name": "Hawaiian",
+      "description": "Sweet drink made with coffee and coconut milk",
+      "price": 9.90,
+      "image": "/assets/coffees/12.png",
+      "tags": ["special"]
+    },
+    {
+      "id": 13,
+      "name": "Arabic",
+      "description": "Beverage made with Arabic coffee beans and spices",
+      "price": 9.90,
+      "image": "/assets/coffees/13.png",
+      "tags": ["special"]
+    },
+    {
+      "id": 14,
+      "name": "Irish",
+      "description": "Drink based on coffee, Irish whiskey, sugar and whipped cream",
+      "price": 9.90,
+      "image": "/assets/coffees/14.png",
+      "tags": ["special", "alcoholic"]
+    }
+  ]
+}

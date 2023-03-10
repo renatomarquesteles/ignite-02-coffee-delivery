@@ -6,7 +6,6 @@ import {
   Timer,
 } from "phosphor-react";
 
-import coffee1 from "../../assets/coffees/1.png";
 import coffeeCupImg from "../../assets/coffee-cup.png";
 import { Tag } from "../../components/Tag";
 import { QuantityInput } from "../../components/QuantityInput";
@@ -20,7 +19,12 @@ import {
   CoffeeList,
   Introduction,
   Menu,
+  Tags,
 } from "./styles";
+
+import database from "../../database/mock.json";
+
+const coffeeList = database.data;
 
 export const Home = () => {
   return (
@@ -69,14 +73,18 @@ export const Home = () => {
       <Menu>
         <h1>Menu</h1>
         <CoffeeList>
-          {Array.from({ length: 5 }, (_, index) => (
-            <CoffeeCard key={index}>
-              <img src={coffee1} alt="" />
-              <Tag>Traditional</Tag>
-              <h1>Traditional Espresso</h1>
-              <p>Traditional coffee made from hot water and ground beans</p>
+          {coffeeList.map((coffee) => (
+            <CoffeeCard key={coffee.id}>
+              <img src={coffee.image} alt="" />
+              <Tags>
+                {coffee.tags.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
+              </Tags>
+              <h1>{coffee.name}</h1>
+              <p>{coffee.description}</p>
               <AddToCart>
-                <span>$9.90</span>
+                <span>${coffee.price.toFixed(2)}</span>
 
                 <AddToCartWrapper>
                   <QuantityInput quantity={1} />
