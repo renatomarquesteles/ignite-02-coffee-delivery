@@ -7,6 +7,7 @@ import {
   Trash,
 } from "phosphor-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
 import coffeeImage from "../../assets/coffees/1.png";
@@ -39,6 +40,7 @@ export const Checkout = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethod | null>(null);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handlePaymentChange = (method: PaymentMethod) => {
     setSelectedPaymentMethod(method);
@@ -182,7 +184,9 @@ export const Checkout = () => {
             </div>
           </TotalPriceContainer>
 
-          <ConfirmButton>PLACE ORDER</ConfirmButton>
+          <ConfirmButton onClick={() => navigate("/success")}>
+            PLACE ORDER
+          </ConfirmButton>
         </CartCard>
       </CartInfo>
     </Container>
