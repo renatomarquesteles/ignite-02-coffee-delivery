@@ -4,14 +4,13 @@ import {
   CurrencyDollar,
   MapPinLine,
   Money,
-  Trash,
 } from "phosphor-react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-import { QuantityInput } from "../../components/QuantityInput";
 import { CartContext } from "../../contexts/CartContext";
+import { CoffeeItem } from "./components/CoffeeItem";
 
 import {
   Card,
@@ -26,10 +25,6 @@ import {
   PaymentMethods,
   PaymentMethodLabel,
   OptionalInputContainer,
-  CoffeeItem,
-  RemoveButton,
-  OptionsContainer,
-  CoffeeItemWrapper,
   TotalPriceContainer,
   ConfirmButton,
 } from "./styles";
@@ -154,30 +149,7 @@ export const Checkout = () => {
 
         <CartCard>
           {orderItems.map((item, index) => (
-            <CoffeeItem key={item.name + index}>
-              <img src={item.image} alt="" />
-
-              <CoffeeItemWrapper>
-                <span>{item.name}</span>
-
-                <OptionsContainer>
-                  <QuantityInput
-                    quantity={item.quantity}
-                    onPlusClick={() => {}}
-                    onMinusClick={() => {}}
-                    min={1}
-                    max={99}
-                  />
-
-                  <RemoveButton>
-                    <Trash size={16} />
-                    REMOVE
-                  </RemoveButton>
-                </OptionsContainer>
-              </CoffeeItemWrapper>
-
-              <span>$ {item.price.toFixed(2)}</span>
-            </CoffeeItem>
+            <CoffeeItem key={item.name + index} item={item} />
           ))}
 
           <TotalPriceContainer>
