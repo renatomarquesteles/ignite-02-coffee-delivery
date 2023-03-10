@@ -4,6 +4,15 @@ export const Container = styled.main`
   padding: 2.5rem 10rem;
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 1280px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.75rem 10%;
+  }
 `;
 
 export const Subtitle = styled.h1`
@@ -19,6 +28,10 @@ export const CustomerInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
 `;
 
 const BaseCard = styled.section`
@@ -31,6 +44,10 @@ export const Card = styled(BaseCard)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  svg {
+    flex-shrink: 0;
+  }
 `;
 
 export const Description = styled.div`
@@ -81,6 +98,15 @@ export const AddressInputsWrapper = styled.div`
       max-width: 3.75rem;
     }
   }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+
+    input.mid,
+    input.short {
+      max-width: 100%;
+    }
+  }
 `;
 
 export const OptionalInputContainer = styled.div`
@@ -116,6 +142,10 @@ export const PaymentMethods = styled.div`
       box-shadow: 0 0 0 2px ${(props) => props.theme["yellow-dark"]};
     }
   }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 interface PaymentMethodLabelProps {
@@ -125,7 +155,7 @@ interface PaymentMethodLabelProps {
 export const PaymentMethodLabel = styled.label<PaymentMethodLabelProps>`
   width: 100%;
   background: ${(props) => props.theme["base-button"]};
-  padding: 1rem 0;
+  padding: 1rem 0.25rem 1rem 0;
   border-radius: 6px;
   border: 1px solid transparent;
   display: flex;
@@ -156,11 +186,15 @@ export const PaymentMethodLabel = styled.label<PaymentMethodLabelProps>`
 `;
 
 export const CartInfo = styled.div`
-  flex: 1;
+  width: 100%;
   max-width: 28rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 export const CartCard = styled(BaseCard)`
@@ -185,6 +219,16 @@ export const CoffeeItem = styled.div`
     color: ${(props) => props.theme["base-text"]};
     margin-left: auto;
     font-weight: 700;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    > span {
+      margin: 0;
+    }
   }
 `;
 
