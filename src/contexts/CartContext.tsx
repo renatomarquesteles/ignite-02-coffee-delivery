@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface Coffee {
   id: number;
@@ -10,7 +11,7 @@ interface Coffee {
 }
 
 interface CartItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -20,6 +21,7 @@ interface CartItem {
 interface CartContextType {
   orderItems: CartItem[];
   addCoffeeToCart: (coffee: Coffee, quantity: number) => void;
+  updateItemQuantity: (itemId: string, quantity: number) => void;
 }
 
 interface CartContextProviderProps {
@@ -35,7 +37,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     setOrderItems((state) => [
       ...state,
       {
-        id: coffee.id,
+        id: uuidv4(),
         name: coffee.name,
         price: coffee.price,
         image: coffee.image,
@@ -44,8 +46,16 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     ]);
   };
 
+  const updateItemQuantity = (itemId: string, quantity: number) => {
+    setOrderItems((state) =>
+      state.map((item) => (item.id === itemId ? { ...item, quantity } : item))
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ orderItems, addCoffeeToCart }}>
+    <CartContext.Provider
+      value={{ orderItems, addCoffeeToCart, updateItemQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
