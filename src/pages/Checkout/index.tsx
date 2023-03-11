@@ -5,7 +5,8 @@ import {
   MapPinLine,
   Money,
 } from "phosphor-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
@@ -29,14 +30,24 @@ import {
   ConfirmButton,
 } from "./styles";
 
-type PaymentMethod = "credit" | "debit" | "money";
+interface FormInputs {
+  zipcode: string;
+  street: string;
+  number: number;
+  complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  payment: "credit" | "debit" | "money";
+}
 
 export const Checkout = () => {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<PaymentMethod | null>(null);
   const { orderItems } = useContext(CartContext);
+  const { register, handleSubmit, watch } = useForm<FormInputs>();
   const theme = useTheme();
   const navigate = useNavigate();
+
+  const selectedPaymentMethod = watch("payment");
 
   const subtotal = orderItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -45,136 +56,158 @@ export const Checkout = () => {
   const shipping = 3.5;
   const total = subtotal + shipping;
 
-  const handlePaymentChange = (method: PaymentMethod) => {
-    setSelectedPaymentMethod(method);
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log({ data });
   };
 
   return (
-    <Container>
-      <CustomerInfo>
-        <Subtitle>Complete your order</Subtitle>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Container>
+        <CustomerInfo>
+          <Subtitle>Complete your order</Subtitle>
 
-        <Card>
-          <Description>
-            <MapPinLine size={22} color={theme["yellow-dark"]} />
-            <div>
-              <h2>Shipping Address</h2>
-              <p>
-                Enter the address where you would like to receive your order
-              </p>
-            </div>
-          </Description>
+          <Card>
+            <Description>
+              <MapPinLine size={22} color={theme["yellow-dark"]} />
+              <div>
+                <h2>Shipping Address</h2>
+                <p>
+                  Enter the address where you would like to receive your order
+                </p>
+              </div>
+            </Description>
 
-          <AddressInputs>
-            <AddressInputsWrapper>
-              <input type="text" className="mid" placeholder="ZIP Code" />
-            </AddressInputsWrapper>
-            <AddressInputsWrapper>
-              <input type="text" placeholder="Street" />
-            </AddressInputsWrapper>
-            <AddressInputsWrapper>
-              <input type="text" className="mid" placeholder="Number" />
-              <OptionalInputContainer>
-                <input type="text" placeholder="Complement" />
-              </OptionalInputContainer>
-            </AddressInputsWrapper>
-            <AddressInputsWrapper>
-              <input type="text" className="mid" placeholder="Neighborhood" />
-              <input type="text" placeholder="City" />
-              <input type="text" className="short" placeholder="State" />
-            </AddressInputsWrapper>
-          </AddressInputs>
-        </Card>
+            <AddressInputs>
+              <AddressInputsWrapper>
+                <input
+                  type="text"
+                  className="mid"
+                  placeholder="ZIP Code"
+                  {...register("zipcode")}
+                />
+              </AddressInputsWrapper>
+              <AddressInputsWrapper>
+                <input
+                  type="text"
+                  placeholder="Street"
+                  {...register("street")}
+                />
+              </AddressInputsWrapper>
+              <AddressInputsWrapper>
+                <input
+                  type="text"
+                  className="mid"
+                  placeholder="Number"
+                  {...register("number")}
+                />
+                <OptionalInputContainer>
+                  <input
+                    type="text"
+                    placeholder="Complement"
+                    {...register("complement")}
+                  />
+                </OptionalInputContainer>
+              </AddressInputsWrapper>
+              <AddressInputsWrapper>
+                <input
+                  type="text"
+                  className="mid"
+                  placeholder="Neighborhood"
+                  {...register("neighborhood")}
+                />
+                <input type="text" placeholder="City" {...register("city")} />
+                <input
+                  type="text"
+                  className="short"
+                  placeholder="State"
+                  {...register("state")}
+                />
+              </AddressInputsWrapper>
+            </AddressInputs>
+          </Card>
 
-        <Card>
-          <Description>
-            <CurrencyDollar size={22} color={theme.purple} />
-            <div>
-              <h2>Payment Method</h2>
-              <p>Payment is made upon delivery. Choose how you want to pay</p>
-            </div>
-          </Description>
+          <Card>
+            <Description>
+              <CurrencyDollar size={22} color={theme.purple} />
+              <div>
+                <h2>Payment Method</h2>
+                <p>Payment is made upon delivery. Choose how you want to pay</p>
+              </div>
+            </Description>
 
-          <PaymentMethods>
-            <input
-              type="radio"
-              id="credit"
-              name="credit"
-              value="credit"
-              checked={selectedPaymentMethod === "credit"}
-              onChange={() => handlePaymentChange("credit")}
-            />
-            <PaymentMethodLabel
-              htmlFor="credit"
-              selected={selectedPaymentMethod === "credit"}
-            >
-              <CreditCard size={16} />
-              Credit Card
-            </PaymentMethodLabel>
+            <PaymentMethods>
+              <input
+                type="radio"
+                id="credit"
+                value="credit"
+                {...register("payment")}
+              />
+              <PaymentMethodLabel
+                htmlFor="credit"
+                selected={selectedPaymentMethod === "credit"}
+              >
+                <CreditCard size={16} />
+                Credit Card
+              </PaymentMethodLabel>
 
-            <input
-              type="radio"
-              id="debit"
-              name="debit"
-              value="debit"
-              checked={selectedPaymentMethod === "debit"}
-              onChange={() => handlePaymentChange("debit")}
-            />
-            <PaymentMethodLabel
-              htmlFor="debit"
-              selected={selectedPaymentMethod === "debit"}
-            >
-              <Bank size={16} />
-              Debit Card
-            </PaymentMethodLabel>
+              <input
+                type="radio"
+                id="debit"
+                value="debit"
+                {...register("payment")}
+              />
+              <PaymentMethodLabel
+                htmlFor="debit"
+                selected={selectedPaymentMethod === "debit"}
+              >
+                <Bank size={16} />
+                Debit Card
+              </PaymentMethodLabel>
 
-            <input
-              type="radio"
-              id="money"
-              name="money"
-              value="money"
-              checked={selectedPaymentMethod === "money"}
-              onChange={() => handlePaymentChange("money")}
-            />
-            <PaymentMethodLabel
-              htmlFor="money"
-              selected={selectedPaymentMethod === "money"}
-            >
-              <Money size={16} />
-              Money
-            </PaymentMethodLabel>
-          </PaymentMethods>
-        </Card>
-      </CustomerInfo>
+              <input
+                type="radio"
+                id="money"
+                value="money"
+                {...register("payment")}
+              />
+              <PaymentMethodLabel
+                htmlFor="money"
+                selected={selectedPaymentMethod === "money"}
+              >
+                <Money size={16} />
+                Money
+              </PaymentMethodLabel>
+            </PaymentMethods>
+          </Card>
+        </CustomerInfo>
 
-      <CartInfo>
-        <Subtitle>Selected coffees</Subtitle>
+        <CartInfo>
+          <Subtitle>Selected coffees</Subtitle>
 
-        <CartCard>
-          {orderItems.map((item, index) => (
-            <CoffeeItem key={item.name + index} item={item} />
-          ))}
+          <CartCard>
+            {orderItems.map((item, index) => (
+              <CoffeeItem key={item.name + index} item={item} />
+            ))}
 
-          <TotalPriceContainer>
-            <div>
-              <span>Subtotal</span>
-              <span>$ {subtotal.toFixed(2)}</span>
-            </div>
-            <div>
-              <span>Shipping</span>
-              <span>$ {shipping.toFixed(2)}</span>
-            </div>
-            <div>
-              <span>Total</span>
-              <span>$ {total.toFixed(2)}</span>
-            </div>
-          </TotalPriceContainer>
+            <TotalPriceContainer>
+              <div>
+                <span>Subtotal</span>
+                <span>$ {subtotal.toFixed(2)}</span>
+              </div>
+              <div>
+                <span>Shipping</span>
+                <span>$ {shipping.toFixed(2)}</span>
+              </div>
+              <div>
+                <span>Total</span>
+                <span>$ {total.toFixed(2)}</span>
+              </div>
+            </TotalPriceContainer>
 
-          <ConfirmButton onClick={() => navigate("/success")}>
-            PLACE ORDER
-          </ConfirmButton>
-        </CartCard>
-      </CartInfo>
-    </Container>
+            <ConfirmButton type="submit">PLACE ORDER</ConfirmButton>
+          </CartCard>
+        </CartInfo>
+      </Container>
+    </form>
   );
 };
