@@ -7,7 +7,7 @@ import {
 } from "phosphor-react";
 import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -303,28 +303,39 @@ export const Checkout = () => {
           <Subtitle>Selected coffees</Subtitle>
 
           <CartCard>
-            <ItemsList>
-              {orderItems.map((item, index) => (
-                <CoffeeItem key={item.name + index} item={item} />
-              ))}
-            </ItemsList>
+            {orderItems.length > 0 ? (
+              <>
+                <ItemsList>
+                  {orderItems.map((item, index) => (
+                    <CoffeeItem key={item.name + index} item={item} />
+                  ))}
+                </ItemsList>
 
-            <TotalPriceContainer>
-              <div>
-                <span>Subtotal</span>
-                <span>$ {subtotal.toFixed(2)}</span>
-              </div>
-              <div>
-                <span>Shipping</span>
-                <span>$ {shipping.toFixed(2)}</span>
-              </div>
-              <div>
-                <span>Total</span>
-                <span>$ {total.toFixed(2)}</span>
-              </div>
-            </TotalPriceContainer>
+                <TotalPriceContainer>
+                  <div>
+                    <span>Subtotal</span>
+                    <span>$ {subtotal.toFixed(2)}</span>
+                  </div>
+                  <div>
+                    <span>Shipping</span>
+                    <span>$ {shipping.toFixed(2)}</span>
+                  </div>
+                  <div>
+                    <span>Total</span>
+                    <span>$ {total.toFixed(2)}</span>
+                  </div>
+                </TotalPriceContainer>
 
-            <ConfirmButton type="submit">PLACE ORDER</ConfirmButton>
+                <ConfirmButton type="submit">PLACE ORDER</ConfirmButton>
+              </>
+            ) : (
+              <>
+                <p>Your cart is empty</p>
+                <Link to="/#coffee" preventScrollReset>
+                  Check out the coffee menu!
+                </Link>
+              </>
+            )}
           </CartCard>
         </CartInfo>
       </Container>

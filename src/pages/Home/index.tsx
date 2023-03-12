@@ -54,7 +54,7 @@ export const Home = () => {
         <img src={coffeeCupImg} alt="" />
       </Introduction>
 
-      <Menu>
+      <Menu id="coffee">
         <h1>Menu</h1>
         <CoffeeList>
           {coffeeList.map((coffee) => (
