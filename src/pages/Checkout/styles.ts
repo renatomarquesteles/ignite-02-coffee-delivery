@@ -79,34 +79,21 @@ export const AddressInputsWrapper = styled.div`
   display: flex;
   gap: 0.75rem;
 
-  input {
-    width: 100%;
-    padding: 0.75rem;
-    background: ${(props) => props.theme["base-input"]};
-    border-radius: 4px;
-    border: 1px solid ${(props) => props.theme["base-button"]};
-    color: ${(props) => props.theme["base-text"]};
-    font-size: 0.875rem;
-    line-height: 130%;
-    position: relative;
-
-    &.mid {
-      max-width: 12.5rem;
-    }
-
-    &.short {
-      max-width: 3.75rem;
-    }
-  }
-
   @media (max-width: 768px) {
     flex-wrap: wrap;
-
-    input.mid,
-    input.short {
-      max-width: 100%;
-    }
   }
+`;
+
+export const AddressInput = styled.input`
+  width: 100%;
+  padding: 0.75rem;
+  background: ${(props) => props.theme["base-input"]};
+  border-radius: 4px;
+  border: 1px solid ${(props) => props.theme["base-button"]};
+  color: ${(props) => props.theme["base-text"]};
+  font-size: 0.875rem;
+  line-height: 130%;
+  position: relative;
 `;
 
 export const OptionalInputContainer = styled.div`
@@ -240,4 +227,44 @@ export const ConfirmButton = styled.button`
   &:hover {
     background: ${(props) => props.theme["yellow-dark"]};
   }
+`;
+
+interface InputErrorWrapperProps {
+  error: boolean;
+}
+
+export const InputErrorWrapper = styled.div<InputErrorWrapperProps>`
+  width: 100%;
+
+  &.mid {
+    max-width: 12.5rem;
+  }
+
+  &.short {
+    max-width: 3.75rem;
+  }
+
+  ${(props) =>
+    props.error &&
+    css`
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      input {
+        border: 1px solid ${props.theme.red};
+      }
+    `}
+
+  @media (max-width: 768px) {
+    &.mid,
+    &.short {
+      max-width: 100%;
+    }
+  }
+`;
+
+export const InputErrorMessage = styled.span`
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.red};
 `;
