@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
+import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
 interface Coffee {
@@ -45,6 +46,13 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         quantity,
       },
     ]);
+
+    toast.success(
+      <>
+        <strong style={{ marginRight: 4 }}>{coffee.name}</strong> added to your
+        cart!
+      </>
+    );
   };
 
   const updateItemQuantity = (itemId: string, quantity: number) => {
@@ -55,6 +63,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
   const removeItem = (itemId: string) => {
     setOrderItems((state) => state.filter((item) => item.id !== itemId));
+
+    toast.error(`Item removed from your cart!`);
   };
 
   return (

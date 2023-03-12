@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
@@ -15,6 +16,10 @@ export const App = () => {
         </CartContextProvider>
       </BrowserRouter>
       <GlobalStyle />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{ success: { duration: 5000 } }}
+      />
     </ThemeProvider>
   );
 };
