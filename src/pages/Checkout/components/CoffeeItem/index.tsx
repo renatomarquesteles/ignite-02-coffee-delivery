@@ -24,7 +24,7 @@ interface CoffeeItemProps {
 }
 
 export const CoffeeItem = ({ item }: CoffeeItemProps) => {
-  const { updateItemQuantity } = useContext(CartContext);
+  const { updateItemQuantity, removeItem } = useContext(CartContext);
 
   const handleAddQuantity = () => {
     if (item.quantity >= 99) return;
@@ -36,6 +36,10 @@ export const CoffeeItem = ({ item }: CoffeeItemProps) => {
     if (item.quantity <= 1) return;
 
     updateItemQuantity(item.id, item.quantity - 1);
+  };
+
+  const handleRemoveItem = () => {
+    removeItem(item.id);
   };
 
   return (
@@ -54,7 +58,7 @@ export const CoffeeItem = ({ item }: CoffeeItemProps) => {
             max={99}
           />
 
-          <RemoveButton>
+          <RemoveButton type="button" onClick={handleRemoveItem}>
             <Trash size={16} />
             REMOVE
           </RemoveButton>
