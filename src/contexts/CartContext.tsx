@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
@@ -33,7 +33,25 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [orderItems, setOrderItems] = useState<CartItem[]>([]);
+  const [orderItems, setOrderItems] = useState<CartItem[]>(() => {
+    const storedItems = localStorage.getItem(
+      "@coffee-delivery:order-items-1.0.0"
+    );
+
+    if (storedItems) {
+      return JSON.parse(storedItems);
+    }
+
+    return [];
+  });
+
+  // Updates order items data on local storage
+  useEffect(() => {
+    localStorage.setItem(
+      "@coffee-delivery:order-items-1.0.0",
+      JSON.stringify(orderItems)
+    );
+  }, [orderItems]);
 
   const addCoffeeToCart = (coffee: Coffee, quantity: number) => {
     setOrderItems((state) => [
