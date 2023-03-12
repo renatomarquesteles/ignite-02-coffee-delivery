@@ -33,6 +33,7 @@ import {
   InputErrorMessage,
   InputErrorWrapper,
   AddressInput,
+  ItemsList,
 } from "./styles";
 
 interface CheckoutFormData {
@@ -302,9 +303,11 @@ export const Checkout = () => {
           <Subtitle>Selected coffees</Subtitle>
 
           <CartCard>
-            {orderItems.map((item, index) => (
-              <CoffeeItem key={item.name + index} item={item} />
-            ))}
+            <ItemsList>
+              {orderItems.map((item, index) => (
+                <CoffeeItem key={item.name + index} item={item} />
+              ))}
+            </ItemsList>
 
             <TotalPriceContainer>
               <div>

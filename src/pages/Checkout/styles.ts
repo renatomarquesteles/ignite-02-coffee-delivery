@@ -191,6 +191,14 @@ export const CartCard = styled(BaseCard)`
   gap: 2rem;
 `;
 
+export const ItemsList = styled.div`
+  max-height: 26rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: auto;
+`;
+
 export const TotalPriceContainer = styled.div`
   display: flex;
   flex-direction: column;
