@@ -1,10 +1,25 @@
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
+import { useLocation } from "react-router-dom";
+
 import deliveryGuyImage from "../../assets/delivery-guy.png";
 import { Tag } from "../../components/Tag";
 
 import { Container, Content, Summary, TextGroup, Title } from "./styles";
 
+interface OrderInfo {
+  address: {
+    street: string;
+    number: number;
+    city: string;
+    state: string;
+  };
+  payment: "credit" | "debit" | "money";
+}
+
 export const Success = () => {
+  const location = useLocation();
+  const orderInfo = location.state as OrderInfo;
+
   return (
     <Container>
       <Content>
@@ -20,9 +35,14 @@ export const Success = () => {
             </Tag>
             <TextGroup>
               <p>
-                Delivery at <span>1978 Turkey Pen Road</span>
+                Delivery at{" "}
+                <span>
+                  {orderInfo.address.number} {orderInfo.address.street}
+                </span>
               </p>
-              <p>New York, NY</p>
+              <p>
+                {orderInfo.address.city}, {orderInfo.address.state}
+              </p>
             </TextGroup>
           </div>
 
@@ -45,7 +65,15 @@ export const Success = () => {
             <TextGroup>
               <p>Payment on delivery</p>
               <p>
-                <span>Credit Card</span>
+                <span>
+                  {
+                    {
+                      credit: "Credit Card",
+                      debit: "Debit Card",
+                      money: "Money",
+                    }[orderInfo.payment]
+                  }
+                </span>
               </p>
             </TextGroup>
           </div>

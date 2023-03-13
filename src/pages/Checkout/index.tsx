@@ -115,6 +115,8 @@ export const Checkout = () => {
 
   const onSubmit: SubmitHandler<CheckoutFormData> = (data) => {
     console.log({ data });
+
+    navigate("/success", { state: data });
   };
 
   return (
