@@ -41,7 +41,8 @@ export const Success = () => {
                 </span>
               </p>
               <p>
-                {orderInfo.address.city}, {orderInfo.address.state}
+                {orderInfo.address.city},{" "}
+                {orderInfo.address.state.toUpperCase()}
               </p>
             </TextGroup>
           </div>
