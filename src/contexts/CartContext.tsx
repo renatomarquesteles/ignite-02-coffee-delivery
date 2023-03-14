@@ -1,6 +1,12 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { toast } from "react-hot-toast";
-import { v4 as uuidv4 } from "uuid";
+
+import {
+  addCoffeeToCartAction,
+  removeItemAction,
+  updateItemQuantityAction,
+} from "../reducers/order/actions";
+import { orderReducer } from "../reducers/order/reducer";
 
 interface Coffee {
   id: number;
@@ -32,38 +38,32 @@ interface CartContextProviderProps {
 
 export const CartContext = createContext({} as CartContextType);
 
+const orderStateStorageKey = "@coffee-delivery:order-state-1.0.0";
+
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [orderItems, setOrderItems] = useState<CartItem[]>(() => {
-    const storedItems = localStorage.getItem(
-      "@coffee-delivery:order-items-1.0.0"
-    );
+  const [orderState, dispatch] = useReducer(
+    orderReducer,
+    { items: [] },
+    (initialState) => {
+      const storedState = localStorage.getItem(orderStateStorageKey);
 
-    if (storedItems) {
-      return JSON.parse(storedItems);
+      if (storedState) {
+        return JSON.parse(storedState);
+      }
+
+      return initialState;
     }
+  );
 
-    return [];
-  });
+  const orderItems = orderState.items;
 
-  // Updates order items data on local storage
+  // Updates order state data on local storage
   useEffect(() => {
-    localStorage.setItem(
-      "@coffee-delivery:order-items-1.0.0",
-      JSON.stringify(orderItems)
-    );
-  }, [orderItems]);
+    localStorage.setItem(orderStateStorageKey, JSON.stringify(orderState));
+  }, [orderState]);
 
   const addCoffeeToCart = (coffee: Coffee, quantity: number) => {
-    setOrderItems((state) => [
-      ...state,
-      {
-        id: uuidv4(),
-        name: coffee.name,
-        price: coffee.price,
-        image: coffee.image,
-        quantity,
-      },
-    ]);
+    dispatch(addCoffeeToCartAction(coffee, quantity));
 
     toast.success(
       <>
@@ -74,13 +74,11 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   };
 
   const updateItemQuantity = (itemId: string, quantity: number) => {
-    setOrderItems((state) =>
-      state.map((item) => (item.id === itemId ? { ...item, quantity } : item))
-    );
+    dispatch(updateItemQuantityAction(itemId, quantity));
   };
 
   const removeItem = (itemId: string) => {
-    setOrderItems((state) => state.filter((item) => item.id !== itemId));
+    dispatch(removeItemAction(itemId));
 
     toast.error(`Item removed from your cart!`);
   };
