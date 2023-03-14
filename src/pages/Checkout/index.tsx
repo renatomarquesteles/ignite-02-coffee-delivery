@@ -35,6 +35,7 @@ import {
   AddressInput,
   ItemsList,
 } from "./styles";
+import { toast } from "react-hot-toast";
 
 interface CheckoutFormData {
   address: {
@@ -89,7 +90,7 @@ const checkoutInfoSchema = z
   .required();
 
 export const Checkout = () => {
-  const { orderItems } = useContext(CartContext);
+  const { orderItems, clearCart } = useContext(CartContext);
   const {
     register,
     handleSubmit,
@@ -115,6 +116,10 @@ export const Checkout = () => {
 
   const onSubmit: SubmitHandler<CheckoutFormData> = (data) => {
     console.log({ data });
+
+    clearCart();
+
+    toast.success("Order successfully placed!");
 
     navigate("/success", { state: data });
   };
@@ -230,6 +235,7 @@ export const Checkout = () => {
                     type="text"
                     placeholder="State"
                     maxLength={2}
+                    className="uppercase"
                     {...register("address.state")}
                   />
                   <InputErrorMessage>

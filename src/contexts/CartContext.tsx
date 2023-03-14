@@ -30,6 +30,7 @@ interface CartContextType {
   addCoffeeToCart: (coffee: Coffee, quantity: number) => void;
   updateItemQuantity: (itemId: string, quantity: number) => void;
   removeItem: (itemId: string) => void;
+  clearCart: () => void;
 }
 
 interface CartContextProviderProps {
@@ -83,9 +84,19 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     toast.error(`Item removed from your cart!`);
   };
 
+  const clearCart = () => {
+    setOrderItems([]);
+  };
+
   return (
     <CartContext.Provider
-      value={{ orderItems, addCoffeeToCart, updateItemQuantity, removeItem }}
+      value={{
+        orderItems,
+        addCoffeeToCart,
+        updateItemQuantity,
+        removeItem,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
