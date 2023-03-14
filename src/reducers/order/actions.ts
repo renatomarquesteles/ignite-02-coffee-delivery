@@ -11,6 +11,7 @@ export enum OrderActionsTypes {
   ADD_COFFEE_TO_CART = "ADD_COFFEE_TO_CART",
   UPDATE_ITEM_QUANTITY = "UPDATE_ITEM_QUANTITY",
   REMOVE_ITEM = "REMOVE_ITEM",
+  CLEAR_CART = "CLEAR_CART",
 }
 
 export const addCoffeeToCartAction = (coffee: Coffee, quantity: number) => {
@@ -32,4 +33,8 @@ export const removeItemAction = (itemId: string) => {
     type: OrderActionsTypes.REMOVE_ITEM,
     payload: { itemId },
   };
+};
+
+export const clearCartAction = () => {
+  return { type: OrderActionsTypes.CLEAR_CART, payload: {} };
 };

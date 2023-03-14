@@ -44,7 +44,9 @@ export const orderReducer = (state: orderState, action: any) => {
         ...state,
         items: state.items.filter((item) => item.id !== action.payload.itemId),
       };
+    case OrderActionsTypes.CLEAR_CART:
+      return { ...state, items: [] };
     default:
-      return { items: [] };
+      return state;
   }
 };

@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 
 import {
   addCoffeeToCartAction,
+  clearCartAction,
   removeItemAction,
   updateItemQuantityAction,
 } from "../reducers/order/actions";
@@ -85,7 +86,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   };
 
   const clearCart = () => {
-    setOrderItems([]);
+    dispatch(clearCartAction());
   };
 
   return (
