@@ -94,6 +94,14 @@ export const AddressInput = styled.input`
   font-size: 0.875rem;
   line-height: 130%;
   position: relative;
+
+  &.uppercase {
+    text-transform: uppercase;
+  }
+
+  ::placeholder {
+    text-transform: none;
+  }
 `;
 
 export const OptionalInputContainer = styled.div`
